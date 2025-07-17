@@ -19,13 +19,13 @@ const authentication = async (req, res, next) => {
 
     switch (role) {
       case 'startup':
-        user = await Startup.findOne({ _id, 'tokens.token': token });
+        user = await Startup.findOne({ _id, tokens: token });
         break;
       case 'mentor':
-        user = await Mentor.findOne({ _id, 'tokens.token': token });
+        user = await Mentor.findOne({ _id, tokens: token });
         break;
       case 'admin':
-        user = await Admin.findOne({ _id, 'tokens.token': token });
+        user = await Admin.findOne({ _id, tokens: token });
         break;
       default:
         return res.status(401).send({ message: 'Rol de usuario no válido' });
