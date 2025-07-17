@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Startup = require('../models/Startup');
 const Mentor = require('../models/Mentor');
 const Admin = require('../models/Admin');
-const JWT_SIGNATURE = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const authentication = async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ const authentication = async (req, res, next) => {
       return res.status(401).send({ message: 'Token no proporcionado o formato incorrecto' });
     }
 
-    const payload = jwt.verify(token, JWT_SIGNATURE);
+    const payload = jwt.verify(token, JWT_SECRET);
     const { _id, role } = payload;
 
     let user;
