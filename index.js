@@ -17,6 +17,7 @@ app.use(express.json());
 //app.use('/posts', require('./routes/posts'));
 //app.use('/comments', require('./routes/comments'));
 //app.use('/uploads', express.static('uploads'));
+app.use("/Mentors", require('./routes/mentors'));
 
 //app.use(handleTypeError);
 
