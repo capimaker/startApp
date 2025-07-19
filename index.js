@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const { dbConnection } = require('./config/config');
-//const { handleTypeError } = require('./middlewares/errors');
 const app = express();
 const PORT = process.env.PORT;
 //const swaggerUI = require('swagger-ui-express');
@@ -13,13 +12,18 @@ dbConnection();
 app.use(express.json());
 
 // ENDPOINTS
+app.use('/startup', require('./routes/startup'));
 //app.use('/users', require('./routes/users'));
 //app.use('/posts', require('./routes/posts'));
 //app.use('/comments', require('./routes/comments'));
+<<<<<<< HEAD
 //app.use('/uploads', express.static('uploads'));
 app.use("/Mentors", require('./routes/mentors'));
 
 //app.use(handleTypeError);
+=======
+app.use('/uploads', express.static('uploads'));
+>>>>>>> startup
 
 //app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
