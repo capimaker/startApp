@@ -1,23 +1,21 @@
 const jwt = require('jsonwebtoken');
 const Startup = require('../models/Startup');
-const Mentor = require('../models/Mentor');
-const Admin = require('../models/Admin');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const authentication = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-
-    if (!token) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).send({ message: 'Token no proporcionado o formato incorrecto' });
     }
 
+    const token = authHeader.replace('Bearer ', '');
     const payload = jwt.verify(token, JWT_SECRET);
-    const { _id, role } = payload;
+    const { _id, appRole } = payload;
 
     let user;
 
-    switch (role) {
+    switch (appRole) {
       case 'startup':
         user = await Startup.findOne({ _id, tokens: token });
         break;
@@ -37,7 +35,7 @@ const authentication = async (req, res, next) => {
 
     req.user = user;
     req.token = token;
-    req.role = role;
+    req.role = appRole;
 
     next();
   } catch (error) {
