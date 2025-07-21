@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { dbConnection } = require('./config/config');
 const app = express();
+const cors = require("cors");
 const PORT = process.env.PORT;
 //const swaggerUI = require('swagger-ui-express');
 //const docs = require('./docs/index');
@@ -9,6 +10,7 @@ const PORT = process.env.PORT;
 dbConnection();
 
 // MIDDLEWARE
+app.use(cors());
 app.use(express.json());
 
 // ENDPOINTS

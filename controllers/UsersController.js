@@ -25,6 +25,7 @@ const UsersController = {
 
       res.status(200).send({
         msg: `Bienvenid@`,
+        user,
         token,
       });
     } catch (error) {
